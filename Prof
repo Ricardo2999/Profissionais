@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>MDJ Engenharia - Nossos Profissionais</title>
+  <style>
+    :root {
+      --primary-color: #1b442f; /* Verde Escuro da MDJ */
+      --secondary-color: #145c36; /* Verde Médio */
+      --accent-color: #28a745; /* Um verde mais vibrante para destaques */
+      --light-bg: #f8f9fa; /* Fundo mais claro */
+      --white: #ffffff;
+      --text-color: #333;
+      --light-text: #555;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      color: var(--text-color);
+      background-color: var(--light-bg);
+      line-height: 1.6;
+
+      /* Estilos para a imagem de fundo principal */
+      background-image: url('industria-fundo.webp');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center center;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+
+    /* Sobreposição mais suave para a imagem de fundo */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* Preto com 60% de opacidade */
+      z-index: -1;
+    }
+
+    /* Estilo para o cabeçalho principal */
+    header {
+      background-color: var(--primary-color);
+      padding: 20px 0;
+      text-align: center;
+      color: var(--white);
+      position: relative;
+      z-index: 10; /* Garante que fique acima de outros elementos */
+    }
+
+    header img {
+      max-height: 100px;
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    header p {
+      font-size: 1.1em;
+      margin: 5px 0 0;
+      font-weight: 300;
+    }
+
+    /* Navegação */
+    nav {
+      background-color: var(--secondary-color);
+      padding: 15px 20px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky; /* Menu fixo ao rolar */
+      top: 0;
+      z-index: 9; /* Abaixo do header */
+      transition: all 0.3s ease-in-out;
+    }
+
+    nav.sticky {
+        padding: 10px 20px;
+        background-color: rgba(20, 92, 54, 0.95); /* Levemente transparente quando fixo */
+    }
+
+    nav .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px; /* Espaçamento entre os links */
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05em;
+      transition: color 0.3s ease, transform 0.3s ease;
+      position: relative;
+      padding-bottom: 5px;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-color);
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+      transform: translateY(-2px);
+    }
+
+    /* Menu Hamburger para Mobile */
+    .hamburger-menu {
+      display: none; /* Esconde por padrão */
+      color: var(--white);
+      font-size: 1.8em;
+      cursor: pointer;
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100; /* Garante que fique acima de tudo */
+    }
+
+    /* Seção Hero - Adaptação para páginas internas */
+    .hero {
+      background-color: rgba(224, 242, 234, 0.92); /* Fundo quase opaco */
+      padding: 80px 20px; /* Mais padding */
+      text-align: center;
+      color: var(--primary-color);
+      position: relative;
+      z-index: 1;
+      margin-bottom: 60px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero h1 {
+      font-size: 3em; /* Fonte maior */
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: 1.4em; /* Fonte maior */
+      max-width: 800px;
+      margin: 0 auto 30px;
+      font-weight: 400;
+      color: var(--light-text);
+    }
+
+    .hero .cta-button {
+        display: inline-block;
+        background-color: var(--accent-color);
+        color: var(--white);
+        padding: 15px 30px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1.2em;
+        font-weight: 600;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .hero .cta-button:hover {
+        background-color: #218838; /* Tom mais escuro no hover */
+        transform: translateY(-3px);
+    }
+
+    /* Seções de Conteúdo */
+    .section {
+      padding: 60px 20px; /* Mais padding */
+      max-width: 1100px; /* Largura máxima um pouco maior */
+      margin: auto;
+      margin-bottom: 60px;
+      background-color: var(--white); /* Fundo sólido */
+      box-shadow: 0 0 20px rgba(0,0,0,0.1); /* Sombra mais pronunciada */
+      border-radius: 10px; /* Cantos mais arredondados */
+      position: relative;
+      z-index: 1;
+      opacity: 0; /* Esconde para animação de scroll */
+      transform: translateY(20px); /* Move para baixo para animação */
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section h2 {
+      color: var(--secondary-color);
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.2em;
+      font-weight: 700;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .section h2::after {
+      content: '';
+      position: absolute;
+      width: 80px;
+      height: 4px;
+      background-color: var(--accent-color);
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      border-radius: 2px;
+    }
+
+    /* Estilos para os Profissionais */
+    .profissionais-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-top: 30px;
+        justify-content: center; /* Centraliza itens na grid */
+    }
+
+    .profissional-card {
+        background-color: var(--white);
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        padding: 30px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .profissional-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .profissional-card img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 20px;
+        border: 4px solid var(--accent-color);
+        box-shadow: 0 0 0 5px rgba(40, 167, 69, 0.2); /* Sombra para destaque */
+    }
+
+    .profissional-card h3 {
+        color: var(--primary-color);
+        font-size: 1.8em;
+        margin-bottom: 10px;
+    }
+
+    .profissional-card p {
+        color: var(--light-text);
+        font-size: 1.1em;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+
+    .profissional-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        color: var(--text-color);
+        font-size: 0.95em;
+    }
+
+    .profissional-card ul li {
+        margin-bottom: 8px;
+        padding-left: 25px;
+        position: relative;
+    }
+
+    .profissional-card ul li i {
+        color: var(--secondary-color);
+        position: absolute;
+        left: 0;
+        top: 3px;
+        font-size: 1.1em;
+    }
+
+    /* Rodapé */
+    footer {
+      background-color: var(--primary-color);
+      color: var(--white);
+      text-align: center;
+      padding: 25px;
+      position: relative;
+      z-index: 1;
+      font-size: 0.9em;
+      margin-top: 60px; /* Garante espaço após a última seção */
+    }
+
+    /* Botão Voltar ao Topo */
+    #back-to-top {
+      display: none; /* Escondido por padrão */
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: var(--accent-color);
+      color: var(--white);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5em;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      z-index: 99; /* Garante que fique acima de outros elementos */
+    }
+
+    #back-to-top:hover {
+      background-color: #218838;
+      transform: translateY(-3px);
+    }
+
+    html {
+      scroll-behavior: smooth; /* Rolagem suave */
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2em;
+      }
+
+      .hero p {
+        font-size: 1.1em;
+      }
+
+      nav .nav-links {
+        display: none; /* Esconde os links no mobile */
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--secondary-color);
+        position: absolute;
+        top: 100%; /* Abaixo da nav */
+        left: 0;
+        padding: 10px 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      }
+
+      nav .nav-links.active {
+        display: flex; /* Mostra quando ativo */
+      }
+
+      nav .nav-links a {
+        padding: 10px 0;
+        margin: 5px 0;
+      }
+
+      .hamburger-menu {
+        display: block; /* Mostra o hamburger no mobile */
+      }
+
+      .section {
+        padding: 40px 15px;
+        margin-bottom: 40px;
+      }
+
+      .section h2 {
+        font-size: 1.8em;
+        margin-bottom: 30px;
+      }
+
+      .profissionais-grid {
+        grid-template-columns: 1fr; /* Uma coluna no mobile */
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2em;
+      }
+      header p {
+        font-size: 0.9em;
+      }
+      .hero h1 {
+        font-size: 1.8em;
+      }
+      .hero p {
+        font-size: 1em;
+      }
+      .hero .cta-button {
+        padding: 12px 25px;
+        font-size: 1em;
+      }
+      #back-to-top {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="logo-mdj.png" alt="Logo MDJ Engenharia">
+  <h1>MDJ Engenharia</h1>
+  <p>A segurança de seus empregados em nossas mãos</p>
+</header>
+
+<nav id="main-nav">
+  <div class="nav-links">
+    <!-- Links que apontam para seções na página inicial (index.html) -->
+    <a href="index.html#servicos-tecnicos">Serviços e Laudos</a>
+    <a href="index.html#documentos-licencas">Documentos e Licenças</a>
+    <a href="index.html#treinamentos">Treinamentos</a>
+    <!-- NOVO LINK PARA ESTA PÁGINA DE PROFISSIONAIS -->
+    <a href="profissionais.html">Nossos Profissionais</a>
+    <a href="index.html#contato">Contato</a>
+  </div>
+  <div class="hamburger-menu">
+    <i class="fas fa-bars"></i>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>NOSSOS PROFISSIONAIS</h1>
+  <p>Conheça a equipe de especialistas que garante a excelência e segurança da MDJ Engenharia.</p>
+  <a href="index.html#contato" class="cta-button">Fale Conosco Agora!</a>
+</section>
+
+<section class="section">
+  <h2>CONHEÇA NOSSOS ESPECIALISTAS</h2>
+  <div class="profissionais-grid">
+
+    <!-- Profissional 1: Mario D'Amore Junior -->
+    <div class="profissional-card">
+      <img src="M1.png" alt="Foto de Mario D'Amore Junior">
+      <h3>Mario D'Amore Junior</h3>
+      <p>Engenheiro Mecânico e de Processos, Engenheiro de Segurança do Trabalho</p>
+      <ul>
+        <li><i class="fas fa-graduation-cap"></i> Engenheiro Mecânico e de Processos</li>
+        <li><i class="fas fa-graduation-cap"></i> Engenheiro de Segurança do Trabalho</li>
+        <li><i class="fas fa-gavel"></i> Perito da Justiça do Trabalho</li>
+      </ul>
+    </div>
+
+    <!-- Profissional 2: Paulo Fernando D'Amore -->
+    <div class="profissional-card">
+      <img src="P1.png" alt="Foto de Paulo Fernando D'Amore">
+      <h3>Paulo Fernando D'Amore</h3>
+      <p>Engenheiro Civil, Engenheiro de Segurança do Trabalho</p>
+      <ul>
+        <li><i class="fas fa-graduation-cap"></i> Engenheiro Civil</li>
+        <li><i class="fas fa-graduation-cap"></i> Engenheiro de Segurança do Trabalho</li>
+        <li><i class="fas fa-gavel"></i> Perito da Justiça do Trabalho</li>
+        <li><i class="fas fa-chalkboard-teacher"></i> Instrutor de Trabalho em Altura, Espaço Confinado, Empilhadeira, Transpaleteira, Plataforma Elevatória e Ponte Rolante</li>
+      </ul>
+    </div>
+
+    <!-- Profissional 3: Renato Luis D'Amore -->
+    <div class="profissional-card">
+      <img src="R1.png" alt="Foto de Renato Luis D'Amore">
+      <h3>Renato Luis D'Amore</h3>
+      <p>Engenheiro Eletricista, Engenheiro de Segurança do Trabalho</p>
+      <ul>
+        <li><i class="fas fa-graduation-cap"></i> Engenheiro Eletricista</li>
+        <li><i class="fas fa-graduation-cap"></i> Engenheiro de Segurança do Trabalho</li>
+        <li><i class="fas fa-gavel"></i> Perito da Justiça do Trabalho</li>
+        <li><i class="fas fa-bolt"></i> Instrutor de NR 10</li>
+      </ul>
+    </div>
+
+    <!-- Profissional 4: Ricardo Luiz Molina -->
+    <div class="profissional-card">
+      <img src="R2.png" alt="Foto de Ricardo Luiz Molina">
+      <h3>Ricardo Luiz Molina</h3>
+      <p>Engenheiro de Produção, Engenheiro de Segurança do Trabalho</p>
+      <ul>
+        <li><i class="fas fa-graduation-cap"></i> Engenheiro de Produção</li>
+        <li><i class="fas fa-graduation-cap"></i> Engenheiro de Segurança do Trabalho</li>
+        <li><i class="fas fa-cogs"></i> Especialista em Apreciação de Riscos em Máquinas</li>
+        <li><i class="fas fa-lungs"></i> Higienista Ocupacional</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 MDJ Engenharia - Segurança do Trabalho. Todos os direitos reservados.</p>
+</footer>
+
+<button id="back-to-top" title="Voltar ao Topo">↑</button>
+
+<script>
+  // Script para o menu hamburger
+  document.querySelector('.hamburger-menu').addEventListener('click', function() {
+    document.querySelector('.nav-links').classList.toggle('active');
+  });
+
+  // Script para o menu fixo (sticky nav) e botão "Voltar ao Topo"
+  const nav = document.getElementById('main-nav');
+  const heroSection = document.querySelector('.hero');
+  const backToTopButton = document.getElementById('back-to-top');
+  const headerOffset = document.querySelector('header').offsetHeight;
+
+  window.addEventListener('scroll', () => {
+    // Sticky Nav
+    if (window.scrollY > headerOffset) {
+      nav.classList.add('sticky');
+    } else {
+      nav.classList.remove('sticky');
+    }
+
+    // Back to Top button
+    if (window.scrollY > heroSection.offsetHeight / 2) {
+      backToTopButton.style.display = 'block';
+    } else {
+      backToTopButton.style.display = 'none';
+    }
+  });
+
+  backToTopButton.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Animação de scroll para seções
+  const sections = document.querySelectorAll('.section');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+
+  const sectionObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target); // Para a animação rodar apenas uma vez
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(section => {
+    sectionObserver.observe(section);
+  });
+
+  // Função para aplicar a classe 'visible' à primeira seção assim que a página carrega
+  document.addEventListener('DOMContentLoaded', () => {
+    if (sections.length > 0) {
+      const firstSection = sections[0];
+      const rect = firstSection.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom >= 0) {
+        firstSection.classList.add('visible');
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
